@@ -5,7 +5,7 @@ const int in2 = 9;
 void setup() {
 pinMode(in1, OUTPUT);
 pinMode(in2, OUTPUT);
-}
+} 
 
 void loop() {
 // Rotate motor in one direction
