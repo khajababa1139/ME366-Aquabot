@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>ESP32 LED Control</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <style>
+    body { font-family: Arial; text-align: center; margin-top: 50px; background: #111; color: white; }
+    button { padding: 20px 40px; font-size: 20px; margin: 20px; border: none; border-radius: 10px; }
+    .up { background-color: black; color: white; }
+    .down { background-color: black; color: white; }
+    .calibrate { background-color: red; color: white }
+  </style>
+</head>
+<body>
+  <h1>Actuator control</h1>
+  <button class="up" onclick="fetch('/actuator/up')">Up</button>
+  <button class="down" onclick="fetch('/actuator/down')">Down</button>
+  <button class="calibrate" onclick="fetch('/actuator/calibrate')">Calibrate</button>
+</body>
+</html>

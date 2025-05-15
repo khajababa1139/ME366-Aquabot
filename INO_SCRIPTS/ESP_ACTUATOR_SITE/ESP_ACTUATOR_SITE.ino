@@ -26,12 +26,14 @@ const char MAIN_page[] PROGMEM = R"rawliteral(
     .up { background-color: black; color: white; }
     .down { background-color: black; color: white; }
     .calibrate { background-color: red; color: white }
+    .stop { background-color: red; color: white }
   </style>
 </head>
 <body>
   <h1>Actuator control</h1>
   <button class="up" onclick="fetch('/actuator/up')">Up</button>
   <button class="down" onclick="fetch('/actuator/down')">Down</button>
+  <button class="stop" onclick="fetch('/actuator/stop')">STOP</button>
   <button class="calibrate" onclick="fetch('/actuator/calibrate')">Calibrate</button>
 </body>
 </html>
@@ -48,11 +50,6 @@ void handleActuatorUp() {
 
   digitalWrite(in1, HIGH);
   digitalWrite(in2, LOW);
-  delay(20000);
-    
-  digitalWrite(in1, LOW);
-  digitalWrite(in2, LOW);
-  delay(1000);
 }
 
 void handleActuatorDown() {
@@ -61,11 +58,6 @@ void handleActuatorDown() {
 
   digitalWrite(in2, HIGH);
   digitalWrite(in1, LOW);
-  delay(20000);
-
-  digitalWrite(in1, LOW);
-  digitalWrite(in2, LOW);
-  delay(1000);
 }
 
 void handleCalibrate() {
@@ -74,11 +66,14 @@ void handleCalibrate() {
 
   digitalWrite(in2, HIGH);
   digitalWrite(in1, LOW);
-  delay(20000);
+}
 
-  digitalWrite(in1, LOW);
+void handleActuatorStop() {
+  Serial.println("Stopping");
+  server.send(200, "text/plain", "Stopped");
+
   digitalWrite(in2, LOW);
-  delay(1000);
+  digitalWrite(in1, LOW);
 }
 
 void setup() {
@@ -99,6 +94,7 @@ void setup() {
   server.on("/", handleRoot);
   server.on("/actuator/up", handleActuatorUp);
   server.on("/actuator/down", handleActuatorDown);
+  server.on("/actuator/stop", handleActuatorStop);
   server.on("/actuator/calibrate", handleCalibrate);
 
   server.begin();

@@ -1,9 +1,7 @@
 import numpy as np
 from matplotlib import pyplot as plt
 from matplotlib import animation
-import serial
 import requests
-import time
 
 esp_ip = "http://192.168.10.1/sensor"
 
